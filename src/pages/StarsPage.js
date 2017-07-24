@@ -4,11 +4,11 @@ import gql from 'graphql-tag';
 
 import {Actions} from 'react-native-router-flux';
 
-import {_} from 'underscore'
-import _s from 'underscore.string'
+import { View, Screen, NavigationBar, NavigationBarAnimations, DropDownMenu, Overlay, ScrollView, ListView, GridRow, TouchableOpacity, TouchableNativeFeedback, Touchable, Button, Icon, createIcon, FormGroup, TextInput, Spinner, Switch, Video, Image, ImagePreview, ImageGallery, InlineGallery, ImageGalleryOverlay, HorizontalPager, LoadingIndicator, PageIndicators, RichMedia, Html, ShareButton, Heading, Title, Subtitle, Text, Caption, Divider, Card, Row, Tile, Lightbox} from '@shoutem/ui'
 
-import { View, Text } from '@shoutem/ui'
+import {_} from 'lodash'
 
+import RepositoriesGrid from '../components/RepositoriesGrid'
 
 class StarsPage extends React.Component {
 
@@ -34,14 +34,23 @@ class StarsPage extends React.Component {
           <Text>An unexpected error occurred</Text>);
     }
 
-    if (loading || !viewer) {
-      return (<Text>Loading</Text>);
+    if (loading && !viewer) {
+        return (
+            <View style={{marginTop: 64}}>
+              <Spinner styleName="lg-gutter-top"/>
+            </View>
+        )
     }
 
-    return (
-        <View>
 
-        </View>
+    const repositoriesArray = viewer.starredRepositories.edges.map((node)=>{
+      return node.node
+    })
+
+    return (
+        <Screen styleName="paper" style={{marginTop: 64}} >
+          <RepositoriesGrid repositoriesArray={repositoriesArray} loadMore={loadMore} loading={loading}/>
+        </Screen>
     );
   }
 }
@@ -49,7 +58,7 @@ class StarsPage extends React.Component {
 const StarsQuery = gql`
   query ($cursor:String) { 
     viewer {
-      id
+    id
       starredRepositories (first:50, after:$cursor, orderBy:{field:STARRED_AT, direction:DESC}) {
         edges {
           node {
@@ -58,6 +67,7 @@ const StarsQuery = gql`
             description
             owner {
               id
+              login
               avatarUrl
             }
           }
@@ -71,7 +81,7 @@ const StarsQuery = gql`
   }
 `;
 
-const WithData = graphql(StarsQuery, {
+const StarsPageWithData = graphql(StarsQuery, {
   props: ({data: {loading, error, viewer, fetchMore}}) => (
       {
         data:      {
@@ -85,18 +95,13 @@ const WithData = graphql(StarsQuery, {
                 cursor: viewer.starredRepositories.pageInfo.endCursor,
               },
               updateQuery: (previousResult, { fetchMoreResult }) => {
-                const newEdges = fetchMoreResult.data.viewer.starredRepositories.edges;
-                const pageInfo = fetchMoreResult.data.viewer.starredRepositories.pageInfo;
-                return {
-                  // Put the new comments at the end of the list and update `pageInfo`
-                  // so we have the new `endCursor` and `hasNextPage` values
-                  viewer: {
-                    starredRepositories: {
-                      edges: [...previousResult.viewer.starredRepositories.edges, ...newEdges],
-                      pageInfo,
-                    }
-                  },
-                };
+
+                  const newEdges = fetchMoreResult.viewer.starredRepositories.edges;
+                  const resultEdges = [...previousResult.viewer.starredRepositories.edges, ...newEdges]
+                  const result = _.chain(fetchMoreResult).cloneDeep().set('viewer.starredRepositories.edges', resultEdges).value()
+
+                return result
+
               },
             });
           },
@@ -110,4 +115,4 @@ const WithData = graphql(StarsQuery, {
   },
 })(StarsPage);
 
-export default WithData;
+export default StarsPageWithData;

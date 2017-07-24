@@ -4,7 +4,8 @@ import gql from 'graphql-tag'
 
 import { Actions } from 'react-native-router-flux'
 
-import { View, Text } from '@shoutem/ui'
+import { View, Screen, NavigationBar, NavigationBarAnimations, DropDownMenu, Overlay, ScrollView, ListView, GridRow, TouchableOpacity, TouchableNativeFeedback, Touchable, Button, Icon, createIcon, FormGroup, TextInput, Spinner, Switch, Video, Image, ImagePreview, ImageGallery, InlineGallery, ImageGalleryOverlay, HorizontalPager, LoadingIndicator, PageIndicators, RichMedia, Html, ShareButton, Heading, Title, Subtitle, Text, Caption, Divider, Card, Row, Tile, Lightbox, Examples} from '@shoutem/ui'
+
 
 class LandingPage extends React.Component {
 
@@ -28,36 +29,33 @@ class LandingPage extends React.Component {
       return (<Text>An unexpected error occurred</Text>)
     }
 
-    if (loading || !viewer) {
-      return (<Text>Loading</Text>)
+    if (loading && !viewer) {
+      return (
+          <View style={{marginTop: 64}}>
+            <Spinner styleName="lg-gutter-top"/>
+          </View>
+      )
     }
 
     return (
-        <View style={{marginTop: 64}}>
-          <Text>
-            测试测试
-          </Text>
-        </View>
-    )
+        <TouchableOpacity style={{flex:1}}>
+        {/*<Screen styleName="paper" style={{marginTop: 64}}>*/}
+          <Image style={{flex: 1, resizeMode: 'stretch'}}
+              source={{ uri: 'https://unsplash.it/600/900?image=852' }}
+          >
+            <Tile>
+              <Title styleName="md-gutter-top">Welcome, {viewer.name?viewer.name:viewer.login}</Title>
+              <Subtitle styleName="lg-gutter">This demo demonstrate of github api v4 (graphql), with @shoutem/ui, apollo-client and react-native-router-flux </Subtitle>
+              {/*<Heading>$250.00</Heading>*/}
+              <Button styleName="lg-gutter-top, stretch" onPress={() => Actions.profilePage()}
+              ><Icon name="cart" /><Text>My Profile</Text></Button>
+              <Button styleName="lg-gutter-top, stretch" onPress={() => Actions.starsPage()} ><Icon name="close" /><Text>My Stars</Text></Button>
 
-    // return (
-    //     <View style={{flex: 1, marginTop: 64,}}>
-    //         <View>
-    //           <Button
-    //               onPress={() => Actions.profilePage()}
-    //               title="My Profile"
-    //               color="#841584"
-    //               accessibilityLabel="Learn more about this purple button"
-    //           />
-    //           <Button
-    //               onPress={() => Actions.starsPage()}
-    //               title="My Stars"
-    //               color="#841584"
-    //               accessibilityLabel="Learn more about this purple button"
-    //           />
-    //         </View>
-    //     </View>
-    // )
+            </Tile>
+          </Image>
+        {/*</Screen>*/}
+        </TouchableOpacity>
+    )
   }
 }
 
@@ -71,7 +69,7 @@ const ViewerQuery = gql`
   }
 `
 
-const WithData = graphql(ViewerQuery, {
+const LandingPageWithData = graphql(ViewerQuery, {
   options: {
     variables: {
     },
@@ -79,4 +77,4 @@ const WithData = graphql(ViewerQuery, {
   }
 })(LandingPage)
 
-export default WithData
+export default LandingPageWithData
