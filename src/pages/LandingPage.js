@@ -15,17 +15,17 @@ class LandingPage extends React.Component {
       error: React.PropTypes.object,
       viewer: React.PropTypes.object,
     }).isRequired,
-  }
+  };
 
   render () {
     const {
       loading,
       error,
       viewer,
-    } = this.props.data
+    } = this.props.data;
 
     if (error) {
-      console.log(error)
+      console.log(error);
       return (<Text>An unexpected error occurred</Text>)
     }
 
@@ -48,8 +48,8 @@ class LandingPage extends React.Component {
               <Subtitle styleName="lg-gutter">This demo demonstrate of github api v4 (graphql), with @shoutem/ui, apollo-client and react-native-router-flux </Subtitle>
               {/*<Heading>$250.00</Heading>*/}
               <Button styleName="lg-gutter-top, stretch" onPress={() => Actions.profilePage()}
-              ><Icon name="cart" /><Text>My Profile</Text></Button>
-              <Button styleName="lg-gutter-top, stretch" onPress={() => Actions.starsPage()} ><Icon name="close" /><Text>My Stars</Text></Button>
+              ><Icon name="books" /><Text>My Profile</Text></Button>
+              <Button styleName="lg-gutter-top, stretch" onPress={() => Actions.starsPage()} ><Icon name="add-to-favorites-on" /><Text>My Stars</Text></Button>
 
             </Tile>
           </Image>
@@ -67,7 +67,7 @@ const ViewerQuery = gql`
       id
     }
   }
-`
+`;
 
 const LandingPageWithData = graphql(ViewerQuery, {
   options: {
@@ -75,6 +75,6 @@ const LandingPageWithData = graphql(ViewerQuery, {
     },
     fetchPolicy: 'cache-and-network',
   }
-})(LandingPage)
+})(LandingPage);
 
 export default LandingPageWithData

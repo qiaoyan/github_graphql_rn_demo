@@ -28,7 +28,7 @@ class ProfilePage extends React.Component {
       error,
       viewer,
       primaryLanguageCountBy,
-    } = this.props.data
+    } = this.props.data;
 
     if (error) {
       console.log(error);
@@ -44,7 +44,7 @@ class ProfilePage extends React.Component {
           )
       }
 
-      const repositoriesArray = viewer.repositories.nodes
+      const repositoriesArray = viewer.repositories.nodes;
 
       const dataForChart = _.chain(repositoriesArray).map((repository) => {
           return repository.primaryLanguage?repository.primaryLanguage.name:"not specified"
@@ -53,9 +53,9 @@ class ProfilePage extends React.Component {
               "name":key,
               "repositories":value
           }
-      }).value()
+      }).value();
 
-      let data = dataForChart
+      let data = dataForChart;
 
       let options = {
           margin: {
@@ -82,7 +82,7 @@ class ProfilePage extends React.Component {
               fontWeight: true,
               color: '#fbfbfb'
           }
-      }
+      };
 
       return (
           <Screen styleName="paper" style={{marginTop: 64}} >

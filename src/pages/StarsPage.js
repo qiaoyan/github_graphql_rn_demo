@@ -26,7 +26,7 @@ class StarsPage extends React.Component {
       error,
       viewer,
       loadMore,
-    } = this.props.data
+    } = this.props.data;
 
     if (error) {
       console.log(error);
@@ -45,7 +45,7 @@ class StarsPage extends React.Component {
 
     const repositoriesArray = viewer.starredRepositories.edges.map((node)=>{
       return node.node
-    })
+    });
 
     return (
         <Screen styleName="paper" style={{marginTop: 64}} >
@@ -97,8 +97,8 @@ const StarsPageWithData = graphql(StarsQuery, {
               updateQuery: (previousResult, { fetchMoreResult }) => {
 
                   const newEdges = fetchMoreResult.viewer.starredRepositories.edges;
-                  const resultEdges = [...previousResult.viewer.starredRepositories.edges, ...newEdges]
-                  const result = _.chain(fetchMoreResult).cloneDeep().set('viewer.starredRepositories.edges', resultEdges).value()
+                  const resultEdges = [...previousResult.viewer.starredRepositories.edges, ...newEdges];
+                  const result = _.chain(fetchMoreResult).cloneDeep().set('viewer.starredRepositories.edges', resultEdges).value();
 
                 return result
 

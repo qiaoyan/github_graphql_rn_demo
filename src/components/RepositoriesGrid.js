@@ -46,7 +46,7 @@ class RepositoriesGrid extends React.Component {
 
     render() {
 
-        const groupedData = GridRow.groupByRows(this.props.repositoriesArray, 2)
+        const groupedData = GridRow.groupByRows(this.props.repositoriesArray, 2);
 
         return (
             <View>

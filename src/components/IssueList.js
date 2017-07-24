@@ -52,7 +52,7 @@ class IssueList extends React.Component {
 
         const {
             issueArray,
-        } = this.props
+        } = this.props;
 
         return (
             <View>

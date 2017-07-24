@@ -24,7 +24,7 @@ class IssueCommentsPage extends React.Component {
 
     constructor(props) {
         super(props);
-        this.closeModal = this.closeModal.bind(this)
+        this.closeModal = this.closeModal.bind(this);
         this.submitComment = this.submitComment.bind(this)
     }
 
@@ -38,7 +38,7 @@ class IssueCommentsPage extends React.Component {
 
     submitComment () {
         if (!(this.state.addCommentBody && this.state.addCommentBody.length > 0)) {
-            this.closeModal()
+            this.closeModal();
             return
         }
 
@@ -50,12 +50,12 @@ class IssueCommentsPage extends React.Component {
             }
         }).then(({data}) => {
             this.props.data.updateQuery((previousResult, queryVariables)=>{
-                const newNode = data.addComment.commentEdge.node
-                const resultNodes = [...previousResult.repository.issue.comments.nodes, newNode]
-                const result = _.chain(previousResult).cloneDeep().set('repository.issue.comments.nodes', resultNodes).value()
+                const newNode = data.addComment.commentEdge.node;
+                const resultNodes = [...previousResult.repository.issue.comments.nodes, newNode];
+                const result = _.chain(previousResult).cloneDeep().set('repository.issue.comments.nodes', resultNodes).value();
                 return result
 
-            })
+            });
 
             this.closeModal()
 
@@ -69,9 +69,9 @@ class IssueCommentsPage extends React.Component {
             loading,
             error,
             repository,
-        } = this.props.data
+        } = this.props.data;
 
-        const canSubmit = this.state && this.state.addCommentBody && this.state.addCommentBody.length > 0
+        const canSubmit = this.state && this.state.addCommentBody && this.state.addCommentBody.length > 0;
 
         if (error) {
             console.log(error);
@@ -132,7 +132,7 @@ query ($owner:String!, $name:String!, $number:Int!) {
     }
   }
 }
-`
+`;
 
 
 const IssueCommentsPageWithData = graphql(IssueCommentsQuery, {
@@ -164,8 +164,8 @@ mutation ($subjectId:ID!, $body:String!) {
     }
   }
 }
-`
-const IssueCommentPageWithMutationWithData = graphql(AddIssueCommentMutation)(IssueCommentsPageWithData)
+`;
+const IssueCommentPageWithMutationWithData = graphql(AddIssueCommentMutation)(IssueCommentsPageWithData);
 
 
 export default IssueCommentPageWithMutationWithData;

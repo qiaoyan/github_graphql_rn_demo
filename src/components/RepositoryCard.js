@@ -13,12 +13,12 @@ class RepositoryCard extends React.Component {
 
     static propTypes = {
         repository: React.PropTypes.object.isRequired,
-    }
+    };
 
     render () {
         const {
             repository,
-        } = this.props
+        } = this.props;
 
         return (
             <Card styleName="flexible">

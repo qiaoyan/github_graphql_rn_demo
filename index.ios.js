@@ -16,6 +16,7 @@ import IssueCommentsPage from './src/pages/IssueCommentsPage'
 const TOKEN = 'please replace with your own token, https://developer.github.com/v4/guides/forming-calls/#authenticating-with-graphql';
 
 
+
 const client = new ApolloClient({
     networkInterface: createNetworkInterface({
         uri: 'https://api.github.com/graphql',
@@ -33,12 +34,12 @@ const client = new ApolloClient({
                 }
 
                 // Send the login token in the Authorization header
-                req.options.headers.authorization = `Bearer ${TOKEN}`
+                req.options.headers.authorization = `Bearer ${TOKEN}`;
                 next()
             }
         }]
     ),
-})
+});
 
 
 const scenes = Actions.create(
@@ -49,7 +50,7 @@ const scenes = Actions.create(
         <Scene key='repositoryPage' title='Open Issues' component={RepositoryPage} type={ActionConst.PUSH} />
         <Scene key='issueCommentsPage' rightTitle="Add" onRight={()=>{ Actions.refresh({add:true}) }} title='Issue Comments' component={IssueCommentsPage} type={ActionConst.PUSH} />
     </Scene>
-)
+);
 
 
 

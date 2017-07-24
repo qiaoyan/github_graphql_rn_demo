@@ -25,7 +25,7 @@ class RepositoryPage extends React.Component {
           loading,
           error,
           repository,
-      } = this.props.data
+      } = this.props.data;
 
       if (error) {
           console.log(error);
@@ -86,7 +86,7 @@ query ($owner:String!, $name:String!) {
     }
   }
 }
-`
+`;
 
 const RepositoryPageWithData = graphql(RepositoryQuery, {
   // props: (

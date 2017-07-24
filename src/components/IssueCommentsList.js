@@ -38,7 +38,7 @@ class IssueCommentsList extends React.Component {
                     <Subtitle styleName="md-gutter multiline" >{comment.bodyText}</Subtitle>
                 </ScrollView>
             )
-        }
+        };
 
         return (
             <Lightbox styleName="lg-gutter" backgroundColor="#f2f2f2" renderContent={commentBody}>
@@ -69,7 +69,7 @@ class IssueCommentsList extends React.Component {
 
         const {
             issueCommentsArray,
-        } = this.props
+        } = this.props;
 
         return (
             <View>
