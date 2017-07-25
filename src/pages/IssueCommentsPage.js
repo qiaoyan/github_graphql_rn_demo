@@ -156,6 +156,7 @@ mutation ($subjectId:ID!, $body:String!) {
       node {
         id
         bodyText
+        createdAt
         author {
           login
           avatarUrl
