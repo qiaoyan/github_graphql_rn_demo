@@ -8,8 +8,10 @@ import {_} from 'lodash'
 
 import { View, Screen, NavigationBar, NavigationBarAnimations, DropDownMenu, Overlay, ScrollView, ListView, GridRow, TouchableOpacity, TouchableNativeFeedback, Touchable, Button, Icon, createIcon, FormGroup, TextInput, Spinner, Switch, Video, Image, ImagePreview, ImageGallery, InlineGallery, ImageGalleryOverlay, HorizontalPager, LoadingIndicator, PageIndicators, RichMedia, Html, ShareButton, Heading, Title, Subtitle, Text, Caption, Divider, Card, Row, Tile, Lightbox} from '@shoutem/ui'
 
+import { Text as RNText } from 'react-native';
+
 import IssueCommentsList from '../components/IssueCommentsList'
-import ModalWrapper from 'react-native-modal-wrapper'
+import ModalWrapperWithThemeSupport from '../components/ModalWrapperWithTheme'
 
 class IssueCommentsPage extends React.Component {
 
@@ -89,22 +91,25 @@ class IssueCommentsPage extends React.Component {
 
         return (
             <Screen styleName="paper" style={{marginTop: 64}} >
-                <ModalWrapper
+                <ModalWrapperWithThemeSupport
                     onRequestClose={this.closeModal}
-                    style={{ flex:1, padding:22 }}
                     visible={this.state?this.state.addState:false}>
-                    <Tile styleName="text-centric paper">
-                        <Title>{repository.issue.title}</Title>
-                        <Subtitle styleName="md-gutter">OPEN ISSUE</Subtitle>
-                        <Heading>Leave your comment ...</Heading>
-                        <TextInput styleName="lg-gutter" autoFocus={true} multiline = {true}
-                                   placeholder={'here'}
-                                   onChangeText={(inputText)=>{this.setState({addCommentBody:inputText})}}
-                        />
-                        <Button styleName={canSubmit?"dark md-gutter-top":"dark md-gutter-top muted"} onPress={canSubmit?this.submitComment:null}><Text>SUBMIT</Text></Button>
-                        <Button styleName="dark md-gutter-top" onPress={this.closeModal}><Text>CANCEL</Text></Button>
-                    </Tile>
-                </ModalWrapper>
+                        <Tile styleName="text-centric paper">
+                        <View>
+                            <Title>{repository.issue.title}</Title>
+                            <Caption styleName="lg-gutter-top">OPEN ISSUE</Caption>
+                            <Heading styleName="lg-gutter-top" >Leave your comment ...</Heading>
+                            <TextInput styleName="lg-gutter-top"
+                                       style={{borderColor: 'gray', borderWidth: 1}}
+                                       autoFocus={true} multiline = {true}
+                                       placeholder={'here'}
+                                       onChangeText={(inputText)=>{this.setState({addCommentBody:inputText})}}
+                            />
+                        </View>
+                            <Button styleName={canSubmit?"dark md-gutter-top":"dark md-gutter-top muted"} onPress={canSubmit?this.submitComment:null}><Text>SUBMIT</Text></Button>
+                            <Button styleName="dark md-gutter-top" onPress={this.closeModal}><Text>CANCEL</Text></Button>
+                        </Tile>
+                </ModalWrapperWithThemeSupport>
                 <IssueCommentsList issueCommentsArray={repository.issue.comments.nodes}/>
             </Screen>
         );
