@@ -1,10 +1,52 @@
 import React from 'react'
-import { graphql } from 'react-apollo'
+import {graphql} from 'react-apollo'
 import gql from 'graphql-tag'
 
-import { Actions } from 'react-native-router-flux'
+import {Actions} from 'react-native-router-flux'
 
-import { View, Screen, NavigationBar, NavigationBarAnimations, DropDownMenu, Overlay, ScrollView, ListView, GridRow, TouchableOpacity, TouchableNativeFeedback, Touchable, Button, Icon, createIcon, FormGroup, TextInput, Spinner, Switch, Video, Image, ImagePreview, ImageGallery, InlineGallery, ImageGalleryOverlay, HorizontalPager, LoadingIndicator, PageIndicators, RichMedia, Html, ShareButton, Heading, Title, Subtitle, Text, Caption, Divider, Card, Row, Tile, Lightbox} from '@shoutem/ui'
+import {
+    View,
+    Screen,
+    NavigationBar,
+    NavigationBarAnimations,
+    DropDownMenu,
+    Overlay,
+    ScrollView,
+    ListView,
+    GridRow,
+    TouchableOpacity,
+    TouchableNativeFeedback,
+    Touchable,
+    Button,
+    Icon,
+    createIcon,
+    FormGroup,
+    TextInput,
+    Spinner,
+    Switch,
+    Video,
+    Image,
+    ImagePreview,
+    ImageGallery,
+    InlineGallery,
+    ImageGalleryOverlay,
+    HorizontalPager,
+    LoadingIndicator,
+    PageIndicators,
+    RichMedia,
+    Html,
+    ShareButton,
+    Heading,
+    Title,
+    Subtitle,
+    Text,
+    Caption,
+    Divider,
+    Card,
+    Row,
+    Tile,
+    Lightbox
+} from '@shoutem/ui'
 
 import {_} from 'lodash'
 import moment from 'moment'
@@ -21,32 +63,17 @@ class IssueCommentsList extends React.Component {
         this.renderRow = this.renderRow.bind(this);
     }
 
-    renderRow (comment) {
-
-        const commentBody =  () => {
-            return (
-                <ScrollView>
-                    <Divider styleName="section-header" style={{marginTop: 64}}>
-                        <Caption>COMMENT BY</Caption>
-                    </Divider>
-
-                    <Title styleName="md-gutter">{comment.author.login}</Title>
-                    <Divider styleName="section-header">
-                        <Caption>COMMENT DETAIL</Caption>
-                    </Divider>
-
-                    <Subtitle styleName="md-gutter multiline" >{comment.bodyText}</Subtitle>
-                </ScrollView>
-            )
-        };
+    renderRow(comment) {
 
         return (
-            <Lightbox styleName="lg-gutter" backgroundColor="#f2f2f2" renderContent={commentBody}>
+            <TouchableOpacity key={comment.id} styleName="flexible"
+                              onPress={() => Actions.commentDetailPage({comment: comment})}>
+
                 <View>
                     <Row>
                         <Image
                             styleName="small-avatar top"
-                            source={{ uri:comment.author.avatarUrl?comment.author.avatarUrl:"https://unsplash.it/200?image=505" }}
+                            source={{uri: comment.author.avatarUrl ? comment.author.avatarUrl : "https://unsplash.it/200?image=505"}}
                         />
                         <View styleName="vertical">
                             <View styleName="horizontal space-between">
@@ -55,11 +82,11 @@ class IssueCommentsList extends React.Component {
                             </View>
                             <Text styleName="multiline">{comment.bodyText}</Text>
                         </View>
-                        <Icon styleName="disclosure" name="right-arrow" />
+                        <Icon styleName="disclosure" name="right-arrow"/>
                     </Row>
                     <Divider styleName="line"/>
                 </View>
-            </Lightbox>
+            </TouchableOpacity>
 
         )
     }
