@@ -15,7 +15,6 @@ import CommentDetailPage from './src/pages/CommentDetailPage'
 
 const TOKEN = 'please replace with your own token, https://developer.github.com/v4/guides/forming-calls/#authenticating-with-graphql';
 
-
 const client = new ApolloClient({
     networkInterface: createNetworkInterface({
         uri: 'https://api.github.com/graphql',
