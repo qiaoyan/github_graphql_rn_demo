@@ -44,7 +44,7 @@ class LandingPage extends React.Component {
               source={{ uri: 'https://unsplash.it/600/900?image=852' }}
           >
             <Tile>
-              <Title styleName="md-gutter-top">Welcome, {viewer.name?viewer.name:viewer.login}</Title>
+              <Title styleName="md-gutter-top">Welcome</Title>
               <Subtitle styleName="lg-gutter">This demo demonstrate of github api v4 (graphql), with @shoutem/ui, apollo-client and react-native-router-flux </Subtitle>
               {/*<Heading>$250.00</Heading>*/}
               <Button styleName="lg-gutter-top, stretch" onPress={() => Actions.profilePage()}

@@ -13,7 +13,7 @@ import RepositoryPage from './src/pages/RepositoryPage'
 import IssueCommentsPage from './src/pages/IssueCommentsPage'
 import CommentDetailPage from './src/pages/CommentDetailPage'
 
-const TOKEN = 'please replace with your own token, https://developer.github.com/v4/guides/forming-calls/#authenticating-with-graphql';
+const TOKEN = 'b5e354c6229d4109803ba935799a07669f1eb042';
 
 const client = new ApolloClient({
     networkInterface: createNetworkInterface({
